@@ -63,6 +63,29 @@ public:
         }
     }
 
+    void updateAccount()
+    {
+        int accNum;
+        cout << "Enter account number to update: ";
+        cin >> accNum;
+
+        auto it = find_if(accounts.begin(), accounts.end(),
+                               [accNum](const BankAccount& acc)
+        {
+            return acc.accountNumber == accNum;
+        });
+
+        if (it != accounts.end())
+        {
+            cout << "Enter new balance: ";
+            cin >> it->balance;
+            cout << "Account updated successfully!\n";
+        }
+        else
+        {
+            cout << "Account not found.\n";
+        }
+    }
 };
 
 int main()
@@ -75,7 +98,8 @@ int main()
         cout << "\nMenu:\n"
                   "1. Create a new account\n"
                   "2. Display all accounts\n"
-                  "3. Exit\n"
+                  "3. Update an account\n"
+                  "4. Exit\n"
                   "Enter your choice: ";
         cin >> choice;
 
@@ -88,6 +112,9 @@ int main()
             bank.displayAllAccounts();
             break;
         case 3:
+            bank.updateAccount();
+            break;
+        case 4:
             cout << "Exiting program. Goodbye!\n";
             break;
         default:
@@ -95,7 +122,7 @@ int main()
         }
 
     }
-    while (choice != 3);
+    while (choice != 4);
 
     return 0;
 }
