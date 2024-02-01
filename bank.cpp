@@ -177,6 +177,31 @@ public:
             cout << "Account not found.\n";
         }
     }
+
+    void searchAccount()
+    {
+        int accNum;
+        cout << "Enter account number to search: ";
+        cin >> accNum;
+
+        auto it = find_if(accounts.begin(), accounts.end(),
+                               [accNum](const BankAccount& acc)
+        {
+            return acc.accountNumber == accNum;
+        });
+
+        if (it != accounts.end())
+        {
+            cout << "Account found!\n";
+            cout << "Account Number: " << it->accountNumber << "\n";
+            cout << "Account Holder: " << it->accountHolder << "\n";
+            cout << "Balance: " << it->balance << "\n";
+        }
+        else
+        {
+            cout << "Account not found.\n";
+        }
+    }
 };
 
 int main()
@@ -193,7 +218,8 @@ int main()
                   "4. Delete an account\n"
                   "5. Deposit an amount\n"
                   "6. Withdraw an amount\n"
-                  "7. Exit\n"
+                  "7. Search for an account\n"
+                  "8. Exit\n"
                   "Enter your choice: ";
         cin >> choice;
 
@@ -218,6 +244,9 @@ int main()
             bank.withdrawAmount();
             break;
         case 7:
+            bank.searchAccount();
+            break;
+        case 8:
             cout << "Exiting program. Goodbye!\n";
             break;
         default:
@@ -225,7 +254,7 @@ int main()
         }
 
     }
-    while (choice != 7);
+    while (choice != 8);
 
     return 0;
 }
