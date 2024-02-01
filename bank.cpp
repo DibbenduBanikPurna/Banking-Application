@@ -136,6 +136,47 @@ public:
             cout << "Account not found.\n";
         }
     }
+
+    void withdrawAmount()
+    {
+        int accNum;
+        double amount;
+
+        cout << "Enter account number to withdraw from: ";
+        cin >> accNum;
+
+        auto it = find_if(accounts.begin(), accounts.end(),
+                               [accNum](const BankAccount& acc)
+        {
+            return acc.accountNumber == accNum;
+        });
+
+        if (it != accounts.end())
+        {
+            if(it->balance<50)
+            {
+                cout<<"You have to have minimum balance of 50 to withdraw. deposit more to withdraw."<<std::endl;
+            }
+            else
+            {
+                cout << "Enter amount to withdraw: ";
+                cin >> amount;
+                if (amount <= it->balance)
+                {
+                    it->balance -= amount;
+                    cout << "Amount withdrawn successfully!\n";
+                }
+                else
+                {
+                    cout << "Insufficient balance.\n";
+                }
+            }
+        }
+        else
+        {
+            cout << "Account not found.\n";
+        }
+    }
 };
 
 int main()
@@ -151,7 +192,8 @@ int main()
                   "3. Update an account\n"
                   "4. Delete an account\n"
                   "5. Deposit an amount\n"
-                  "6. Exit\n"
+                  "6. Withdraw an amount\n"
+                  "7. Exit\n"
                   "Enter your choice: ";
         cin >> choice;
 
@@ -173,6 +215,9 @@ int main()
             bank.depositAmount();
             break;
         case 6:
+            bank.withdrawAmount();
+            break;
+        case 7:
             cout << "Exiting program. Goodbye!\n";
             break;
         default:
@@ -180,7 +225,7 @@ int main()
         }
 
     }
-    while (choice != 6);
+    while (choice != 7);
 
     return 0;
 }
