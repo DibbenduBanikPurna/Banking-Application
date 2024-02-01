@@ -86,6 +86,29 @@ public:
             cout << "Account not found.\n";
         }
     }
+
+    void deleteAccount()
+    {
+        int accNum;
+        cout << "Enter account number to delete: ";
+        cin >> accNum;
+
+        auto it = remove_if(accounts.begin(), accounts.end(),
+                                 [accNum](const BankAccount& acc)
+        {
+            return acc.accountNumber == accNum;
+        });
+
+        if (it != accounts.end())
+        {
+            accounts.erase(it, accounts.end());
+            cout << "Account deleted successfully!\n";
+        }
+        else
+        {
+            cout << "Account not found.\n";
+        }
+    }
 };
 
 int main()
@@ -99,7 +122,8 @@ int main()
                   "1. Create a new account\n"
                   "2. Display all accounts\n"
                   "3. Update an account\n"
-                  "4. Exit\n"
+                  "4. Delete an account\n"
+                  "5. Exit\n"
                   "Enter your choice: ";
         cin >> choice;
 
@@ -115,6 +139,9 @@ int main()
             bank.updateAccount();
             break;
         case 4:
+            bank.deleteAccount();
+            break;
+        case 5:
             cout << "Exiting program. Goodbye!\n";
             break;
         default:
@@ -122,7 +149,7 @@ int main()
         }
 
     }
-    while (choice != 4);
+    while (choice != 5);
 
     return 0;
 }
