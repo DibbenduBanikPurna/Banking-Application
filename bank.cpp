@@ -46,6 +46,23 @@ public:
         std::cout << "Account created successfully!\n";
     }
 
+    void displayAllAccounts()
+    {
+        if (accounts.empty())
+        {
+            cout << "No accounts found.\n";
+            return;
+        }
+
+        cout << "Account details:\n";
+        for (const auto& account : accounts)
+        {
+            cout << "Account Number: " << account.accountNumber << "\n";
+            cout << "Account Holder: " << account.accountHolder << "\n";
+            cout << "Balance: " << account.balance << "\n\n";
+        }
+    }
+
 };
 
 int main()
@@ -56,9 +73,10 @@ int main()
     do
     {
         cout << "\nMenu:\n"
-             "1. Create a new account\n"
-             "2. Exit\n"
-             "Enter your choice: ";
+                  "1. Create a new account\n"
+                  "2. Display all accounts\n"
+                  "3. Exit\n"
+                  "Enter your choice: ";
         cin >> choice;
 
         switch (choice)
@@ -66,8 +84,18 @@ int main()
         case 1:
             bank.createAccount();
             break;
+        case 2:
+            bank.displayAllAccounts();
+            break;
+        case 3:
+            cout << "Exiting program. Goodbye!\n";
+            break;
+        default:
+            cout << "Invalid choice. Please try again.\n";
         }
+
     }
-    while (choice != 2);
+    while (choice != 3);
+
     return 0;
 }
