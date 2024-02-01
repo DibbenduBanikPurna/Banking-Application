@@ -109,6 +109,33 @@ public:
             cout << "Account not found.\n";
         }
     }
+
+    void depositAmount()
+    {
+        int accNum;
+        double amount;
+
+        cout << "Enter account number to deposit into: ";
+        cin >> accNum;
+
+        auto it = find_if(accounts.begin(), accounts.end(),
+                               [accNum](const BankAccount& acc)
+        {
+            return acc.accountNumber == accNum;
+        });
+
+        if (it != accounts.end())
+        {
+            cout << "Enter amount to deposit: ";
+            cin >> amount;
+            it->balance += amount;
+            cout << "Amount deposited successfully!\n";
+        }
+        else
+        {
+            cout << "Account not found.\n";
+        }
+    }
 };
 
 int main()
@@ -123,7 +150,8 @@ int main()
                   "2. Display all accounts\n"
                   "3. Update an account\n"
                   "4. Delete an account\n"
-                  "5. Exit\n"
+                  "5. Deposit an amount\n"
+                  "6. Exit\n"
                   "Enter your choice: ";
         cin >> choice;
 
@@ -142,6 +170,9 @@ int main()
             bank.deleteAccount();
             break;
         case 5:
+            bank.depositAmount();
+            break;
+        case 6:
             cout << "Exiting program. Goodbye!\n";
             break;
         default:
@@ -149,7 +180,7 @@ int main()
         }
 
     }
-    while (choice != 5);
+    while (choice != 6);
 
     return 0;
 }
